@@ -1,0 +1,46 @@
+{
+  "name": "specialist/php-smpp",
+  "description": "PHP SMPP client lib with TLS support",
+  "keywords": [
+    "smpp",
+    "sms",
+    "texting",
+    "gsm"
+  ],
+  "homepage": "https://github.com/specialist/php-smpp",
+  "type": "library",
+  "license": "LGPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Marcin Laber",
+      "email": "marcin@laber.pl",
+      "homepage": "https://laber.pl"
+    },
+    {
+      "name": "Alexandr Mironov",
+      "email": "alex@hyptrex.com"
+    },
+    {
+      "name": "Hans Duedal",
+      "email": "hd@oc.dk",
+      "homepage": "http://oc.dk"
+    },
+    {
+      "name": "Specialist001",
+      "email": "darking-uz@yandex.com",
+      "homepage": "https://otajonov.uz"
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "ext-sockets": "*",
+    "ext-mbstring": "*"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Specialist\\Smpp\\": "src/"
+    }
+  }
+}
