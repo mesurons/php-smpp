@@ -1,5 +1,5 @@
 {
-  "name": "specialist/php-smpp",
+  "name": "mesurons/php-smpp",
   "description": "PHP SMPP client lib with TLS support",
   "keywords": [
     "smpp",
@@ -7,7 +7,7 @@
     "texting",
     "gsm"
   ],
-  "homepage": "https://github.com/specialist/php-smpp",
+  "homepage": "https://github.com/mesurons/php-smpp",
   "type": "library",
   "license": "LGPL-2.0-or-later",
   "authors": [
