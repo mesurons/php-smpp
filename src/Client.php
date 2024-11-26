@@ -137,8 +137,6 @@ class Client
 		
 		$response = $this->bind($login, $pass, SMPP::BIND_RECEIVER);
 		
-		$this->debugLog('Binding status  : %s', $response->status);
-		
 		$this->mode = self::MODE_RECEIVER;
 		$this->login = $login;
 		$this->pass = $pass;
@@ -158,8 +156,6 @@ class Client
 		$this->debugLog('Binding transmitter...');
 		
 		$response = $this->bind($login, $pass, SMPP::BIND_TRANSMITTER);
-		
-		$this->debugLog('Binding status  : %s', $response->status);
 		
 		$this->mode = self::MODE_TRANSMITTER;
 		$this->login = $login;
@@ -181,8 +177,6 @@ class Client
 		
 		$response = $this->bind($login, $pass, SMPP::BIND_TRANSCEIVER);
 		
-		$this->debugLog('Binding status  : %s', $response->status);
-		
 		$this->mode = self::MODE_TRANSCEIVER;
 		$this->login = $login;
 		$this->pass = $pass;
@@ -199,8 +193,6 @@ class Client
 		$this->debugLog('Unbinding...');
 		
 		$response = $this->sendCommand(SMPP::UNBIND, '');
-		
-		$this->debugLog('Unbind status   : %s', $response->status);
 		
 		$this->transport->close();
 	}
@@ -477,8 +469,8 @@ class Client
 		}
 		
 		$response = $this->sendCommand(SMPP::SUBMIT_SM, $pdu);
-		$body = unpack('a*msgid', $response->body);
-		return $body['msgid'];
+
+		return '';
 	}
 	
 	/**
@@ -576,8 +568,10 @@ class Client
 		$pduBody = pack('a' . (strlen($login) + 1) . 'a' . (strlen($pass) + 1) . 'a' . (strlen(self::$systemType) + 1) . 'CCCa' . (strlen(self::$addressRange) + 1), $login, $pass, self::$systemType, self::$interfaceVersion, self::$addrTon, self::$addrNPI, self::$addressRange);
 		
 		$response = $this->sendCommand($commandID, $pduBody);
+		/*
 		if ($response->status !== SMPP::ESME_ROK)
 			throw new SmppException(SMPP::getStatusMessage($response->status), $response->status);
+		*/
 		
 		return $response;
 	}
@@ -767,11 +761,13 @@ class Client
 		$this->sendPDU($pdu);
 		$response = $this->readPduResponse($this->sequenceNumber, $pdu->id);
 		
+		/*
 		if ($response === false)
 			throw new SmppException('Failed to read reply to command: 0x' . dechex($id));
 		
 		if ($response->status !== SMPP::ESME_ROK)
 			throw new SmppException(SMPP::getStatusMessage($response->status), $response->status);
+		*/
 		
 		$this->sequenceNumber ++;
 		
@@ -1008,6 +1004,7 @@ class Client
 	
 	private function debugLog (mixed ...$args): void
 	{
+		log_message('debug', count($args) > 1 ? vsprintf(array_shift($args), $args) : array_shift($args));
 		if ($this->debug)
 			call_user_func($this->debugHandler, count($args) > 1 ? vsprintf(array_shift($args), $args) : array_shift($args));
 	}
