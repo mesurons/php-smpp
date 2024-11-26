@@ -345,7 +345,7 @@ class Stream
 	 */
 	public function read (int $length): mixed
 	{
-		if (!is_resource($this->stream) || feof($this->stream))
+		if (!is_resource($this->stream))
 			throw new SmppTransportException('Stream connection error');
 		
 		$d = stream_get_contents($this->stream, $length);
@@ -408,7 +408,7 @@ class Stream
 	 */
 	public function write (string $buffer, int $length): void
 	{
-		if (!is_resource($this->stream) || feof($this->stream))
+		if (!is_resource($this->stream))
 			throw new SmppTransportException('Stream connection error');
 		
 		$r = $length;
